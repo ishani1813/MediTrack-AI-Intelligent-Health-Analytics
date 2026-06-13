@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+.env
+*.log
+
+# ML artefacts — comment out if you want to commit trained models
+ml_pipeline/models/*.pkl
+ml_pipeline/data/*.csv
+
+# Node
+node_modules/
+dist/
+.next/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Docker volumes
+mysql_data/
+redis_data/
+chroma_data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
