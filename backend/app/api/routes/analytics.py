@@ -1,11 +1,13 @@
+from datetime import datetime, timedelta, timezone
+
 from fastapi import APIRouter, Depends
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func, text
-from datetime import datetime, timedelta
-from app.db.database import get_db
-from app.models.models import Patient, Prediction, TriageSession, HealthRecord
-from app.schemas.schemas import DashboardResponse, DashboardStats, RiskDistribution, TrendPoint
+
 from app.core.security import require_doctor_or_admin
+from app.db.database import get_db
+from app.models.models import HealthRecord, Patient, Prediction, TriageSession
+from app.schemas.schemas import DashboardResponse, DashboardStats, RiskDistribution, TrendPoint
 from app.services.cache.redis_cache import cache_get, cache_set
 
 router = APIRouter(prefix="/analytics", tags=["Analytics"])
@@ -21,7 +23,7 @@ async def get_dashboard(
     if cached:
         return DashboardResponse(**cached)
 
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     month_start = now.replace(day=1, hour=0, minute=0, second=0)
     today_start = now.replace(hour=0, minute=0, second=0)
 

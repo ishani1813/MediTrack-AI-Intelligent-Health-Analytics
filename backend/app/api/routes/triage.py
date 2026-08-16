@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.core.security import get_current_user
 from app.db.database import get_db
 from app.models.models import TriageSession
-from app.schemas.schemas import TriageRequest, TriageResponse, RetrievedDoc
-from app.core.security import get_current_user
+from app.schemas.schemas import RetrievedDoc, TriageRequest, TriageResponse
 from app.services.rag.triage import rag_service
 
 router = APIRouter(prefix="/triage", tags=["RAG Triage"])

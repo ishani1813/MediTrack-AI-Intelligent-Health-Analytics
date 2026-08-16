@@ -1,12 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from app.db.database import get_db
-from app.models.models import Patient, HealthRecord, Prediction
-from app.schemas.schemas import PredictRequest, PredictResponse, ShapFeature
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.core.security import get_current_user
-from app.services.ml.predictor import ml_service
+from app.db.database import get_db
+from app.models.models import HealthRecord, Patient, Prediction
+from app.schemas.schemas import PredictRequest, PredictResponse, ShapFeature
 from app.services.cache.redis_cache import cache_get, cache_set, make_cache_key
+from app.services.ml.predictor import ml_service
 
 router = APIRouter(prefix="/predict", tags=["ML Prediction"])
 

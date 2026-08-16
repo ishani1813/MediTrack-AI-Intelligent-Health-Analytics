@@ -1,11 +1,14 @@
-import random, string
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+import random
+import string
+
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func
-from app.db.database import get_db
-from app.models.models import Patient, HealthRecord
-from app.schemas.schemas import PatientCreate, PatientResponse, HealthRecordCreate, HealthRecordResponse
+
 from app.core.security import get_current_user, require_doctor_or_admin
+from app.db.database import get_db
+from app.models.models import HealthRecord, Patient
+from app.schemas.schemas import HealthRecordCreate, HealthRecordResponse, PatientCreate, PatientResponse
 
 router = APIRouter(prefix="/patients", tags=["Patients"])
 

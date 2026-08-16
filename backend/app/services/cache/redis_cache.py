@@ -1,11 +1,13 @@
-import json
 import hashlib
-from typing import Optional, Any
+import json
+from typing import Any
+
 import redis.asyncio as aioredis
+
 from app.core.config import settings
 from app.core.logging import app_logger
 
-_redis_client: Optional[aioredis.Redis] = None
+_redis_client: aioredis.Redis | None = None
 
 
 async def get_redis() -> aioredis.Redis:
@@ -27,7 +29,7 @@ def make_cache_key(prefix: str, data: dict) -> str:
     return f"{prefix}:{digest}"
 
 
-async def cache_get(key: str) -> Optional[Any]:
+async def cache_get(key: str) -> Any | None:
     try:
         redis = await get_redis()
         value = await redis.get(key)

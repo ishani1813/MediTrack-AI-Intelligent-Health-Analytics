@@ -1,10 +1,9 @@
-from sqlalchemy import (
-    Column, Integer, String, Float, Boolean, Text, JSON,
-    Enum, ForeignKey, TIMESTAMP, func
-)
-from sqlalchemy.orm import relationship
-from app.db.database import Base
 import enum
+
+from sqlalchemy import JSON, TIMESTAMP, Boolean, Column, Enum, Float, ForeignKey, Integer, String, Text, func
+from sqlalchemy.orm import relationship
+
+from app.db.database import Base
 
 
 class UserRole(str, enum.Enum):

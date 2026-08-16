@@ -23,3 +23,46 @@ jobs:
         run: |
           npm install
           npm run build
+
+  backend-test:
+    name: Backend Lint + Tests
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: rootpass
+          MYSQL_DATABASE: health_platform
+          MYSQL_USER: health_user
+          MYSQL_PASSWORD: health_pass
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          pip install -r requirements.txt
+          pip install ruff
+
+      - name: Lint (ruff)
+        working-directory: backend
+        run: ruff check app/ tests/
+
+      - name: Run tests
+        working-directory: backend
+        env:
+          USE_LOCAL_LLM: "true"
+          MYSQL_URL: "mysql+aiomysql://health_user:health_pass@127.0.0.1:3306/health_platform"
+        run: pytest tests/ -v

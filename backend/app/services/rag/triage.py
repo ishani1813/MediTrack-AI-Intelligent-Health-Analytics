@@ -7,20 +7,19 @@ LangChain RAG Symptom Triage Service
 4. Returns structured urgency assessment + recommendations
 """
 
-from typing import List, Dict, Any, Optional
+from typing import Any
+
 from app.core.config import settings
 from app.core.logging import app_logger
 
 # LangChain imports (graceful degradation if not installed)
 try:
     import chromadb
-    from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-    from langchain_community.llms import Ollama
-    from langchain_community.embeddings import OllamaEmbeddings
-    from langchain_community.vectorstores import Chroma
     from langchain.prompts import PromptTemplate
-    from langchain.schema import Document
-    from langchain.chains import RetrievalQA
+    from langchain_community.embeddings import OllamaEmbeddings
+    from langchain_community.llms import Ollama
+    from langchain_community.vectorstores import Chroma
+    from langchain_openai import ChatOpenAI, OpenAIEmbeddings
     LANGCHAIN_AVAILABLE = True
 except ImportError:
     LANGCHAIN_AVAILABLE = False
@@ -223,7 +222,7 @@ Action: {entry['action']}"""
             app_logger.error(f"RAG initialization failed: {e}. Using rule-based fallback.")
             self._initialized = False
 
-    def _rule_based_triage(self, symptoms: str) -> Dict[str, Any]:
+    def _rule_based_triage(self, symptoms: str) -> dict[str, Any]:
         """Keyword-based triage when LLM is unavailable."""
         symptoms_lower = symptoms.lower()
 
@@ -292,10 +291,10 @@ Action: {entry['action']}"""
     async def triage(
         self,
         symptoms: str,
-        patient_age: Optional[int] = None,
-        patient_gender: Optional[str] = None,
-        medical_history: Optional[List[str]] = None,
-    ) -> Dict[str, Any]:
+        patient_age: int | None = None,
+        patient_gender: str | None = None,
+        medical_history: list[str] | None = None,
+    ) -> dict[str, Any]:
         """
         Full RAG triage pipeline:
         symptoms → embed → retrieve → LLM → parse response
@@ -356,7 +355,7 @@ Action: {entry['action']}"""
             return self._rule_based_triage(symptoms)
 
     @staticmethod
-    def _parse_llm_response(text: str) -> Dict[str, Any]:
+    def _parse_llm_response(text: str) -> dict[str, Any]:
         """Parse structured LLM output."""
         lines = text.strip().split("\n")
         result = {"urgency": "soon", "assessment": "", "conditions": [], "actions": []}

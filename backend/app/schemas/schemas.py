@@ -1,8 +1,8 @@
-from pydantic import BaseModel, EmailStr, Field, field_validator
-from typing import Optional, List, Dict, Any
 from datetime import datetime
 from enum import Enum
+from typing import Any
 
+from pydantic import BaseModel, EmailStr, Field
 
 # ─── Enums ───────────────────────────────────────────────────────────────────
 
@@ -60,20 +60,20 @@ class UserResponse(BaseModel):
 class PatientCreate(BaseModel):
     age: int = Field(..., ge=0, le=150)
     gender: str = Field(..., pattern="^(male|female|other)$")
-    blood_group: Optional[str] = None
-    contact_number: Optional[str] = None
-    address: Optional[str] = None
-    medical_history: Optional[Dict[str, Any]] = {}
+    blood_group: str | None = None
+    contact_number: str | None = None
+    address: str | None = None
+    medical_history: dict[str, Any] | None = {}
 
 class PatientResponse(BaseModel):
     id: int
     patient_code: str
     age: int
     gender: str
-    blood_group: Optional[str]
-    contact_number: Optional[str]
-    address: Optional[str]
-    medical_history: Optional[Dict]
+    blood_group: str | None
+    contact_number: str | None
+    address: str | None
+    medical_history: dict | None
     created_at: datetime
 
     class Config:
@@ -84,18 +84,18 @@ class PatientResponse(BaseModel):
 
 class HealthRecordCreate(BaseModel):
     patient_id: int
-    blood_pressure_systolic: Optional[int] = Field(None, ge=60, le=250)
-    blood_pressure_diastolic: Optional[int] = Field(None, ge=40, le=150)
-    heart_rate: Optional[int] = Field(None, ge=30, le=220)
-    blood_glucose: Optional[float] = Field(None, ge=0, le=600)
-    bmi: Optional[float] = Field(None, ge=10, le=70)
-    cholesterol_total: Optional[float] = None
-    cholesterol_hdl: Optional[float] = None
-    cholesterol_ldl: Optional[float] = None
-    hemoglobin: Optional[float] = None
-    temperature: Optional[float] = Field(None, ge=32, le=43)
-    oxygen_saturation: Optional[float] = Field(None, ge=50, le=100)
-    notes: Optional[str] = None
+    blood_pressure_systolic: int | None = Field(None, ge=60, le=250)
+    blood_pressure_diastolic: int | None = Field(None, ge=40, le=150)
+    heart_rate: int | None = Field(None, ge=30, le=220)
+    blood_glucose: float | None = Field(None, ge=0, le=600)
+    bmi: float | None = Field(None, ge=10, le=70)
+    cholesterol_total: float | None = None
+    cholesterol_hdl: float | None = None
+    cholesterol_ldl: float | None = None
+    hemoglobin: float | None = None
+    temperature: float | None = Field(None, ge=32, le=43)
+    oxygen_saturation: float | None = Field(None, ge=50, le=100)
+    notes: str | None = None
 
 class HealthRecordResponse(HealthRecordCreate):
     id: int
@@ -109,19 +109,19 @@ class HealthRecordResponse(HealthRecordCreate):
 
 class PredictRequest(BaseModel):
     patient_id: int
-    health_record_id: Optional[int] = None
+    health_record_id: int | None = None
     # Direct vitals input (if no health_record_id)
-    age: Optional[int] = None
-    blood_pressure_systolic: Optional[int] = None
-    blood_pressure_diastolic: Optional[int] = None
-    heart_rate: Optional[int] = None
-    blood_glucose: Optional[float] = None
-    bmi: Optional[float] = None
-    cholesterol_total: Optional[float] = None
-    cholesterol_hdl: Optional[float] = None
-    cholesterol_ldl: Optional[float] = None
-    hemoglobin: Optional[float] = None
-    oxygen_saturation: Optional[float] = None
+    age: int | None = None
+    blood_pressure_systolic: int | None = None
+    blood_pressure_diastolic: int | None = None
+    heart_rate: int | None = None
+    blood_glucose: float | None = None
+    bmi: float | None = None
+    cholesterol_total: float | None = None
+    cholesterol_hdl: float | None = None
+    cholesterol_ldl: float | None = None
+    hemoglobin: float | None = None
+    oxygen_saturation: float | None = None
 
 class ShapFeature(BaseModel):
     feature: str
@@ -135,8 +135,8 @@ class PredictResponse(BaseModel):
     risk_score: float
     risk_level: RiskLevel
     confidence: float
-    top_risk_factors: List[ShapFeature]
-    shap_summary: Dict[str, Any]
+    top_risk_factors: list[ShapFeature]
+    shap_summary: dict[str, Any]
     model_version: str
     recommendation: str
     cached: bool = False
@@ -145,11 +145,11 @@ class PredictResponse(BaseModel):
 # ─── RAG Triage ──────────────────────────────────────────────────────────────
 
 class TriageRequest(BaseModel):
-    patient_id: Optional[int] = None
+    patient_id: int | None = None
     symptoms: str = Field(..., min_length=5, max_length=2000)
-    patient_age: Optional[int] = None
-    patient_gender: Optional[str] = None
-    medical_history: Optional[List[str]] = []
+    patient_age: int | None = None
+    patient_gender: str | None = None
+    medical_history: list[str] | None = []
 
 class RetrievedDoc(BaseModel):
     condition: str
@@ -160,9 +160,9 @@ class TriageResponse(BaseModel):
     session_id: int
     urgency_level: UrgencyLevel
     ai_assessment: str
-    possible_conditions: List[str]
-    recommended_actions: List[str]
-    retrieved_references: List[RetrievedDoc]
+    possible_conditions: list[str]
+    recommended_actions: list[str]
+    retrieved_references: list[RetrievedDoc]
     disclaimer: str = "This is an AI-assisted triage, not a medical diagnosis. Please consult a qualified physician."
 
 
@@ -184,11 +184,11 @@ class RiskDistribution(BaseModel):
 class TrendPoint(BaseModel):
     date: str
     value: float
-    label: Optional[str] = None
+    label: str | None = None
 
 class DashboardResponse(BaseModel):
     stats: DashboardStats
     risk_distribution: RiskDistribution
-    risk_trend: List[TrendPoint]
-    top_risk_factors_global: List[Dict[str, Any]]
-    recent_predictions: List[PredictResponse]
+    risk_trend: list[TrendPoint]
+    top_risk_factors_global: list[dict[str, Any]]
+    recent_predictions: list[PredictResponse]

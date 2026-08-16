@@ -1,6 +1,6 @@
 # AI-Powered Health Checkup & Predictive Analytics Platform
 
-A production-grade full-stack platform combining **LLM-powered symptom triage** (LangChain RAG), **explainable ML predictions** (XGBoost + SHAP), and a **real-time analytics dashboard** (React + FastAPI + Redis).
+A production-oriented full-stack platform combining **LLM-powered symptom triage** (LangChain RAG), **explainable ML predictions** (XGBoost + SHAP), and a **real-time analytics dashboard** (React + FastAPI + Redis).
 
 > Built by Ishani Sarkar — NIT Durgapur, B.Tech CSE 2026
 
@@ -41,8 +41,8 @@ A production-grade full-stack platform combining **LLM-powered symptom triage** 
 
 ### 1. Clone & configure
 ```bash
-git clone https://github.com/ishani1813/health-ai-platform.git
-cd health-ai-platform
+git clone https://github.com/ishani1813/MediTrack-AI-Intelligent-Health-Analytics.git
+cd MediTrack-AI-Intelligent-Health-Analytics
 cp .env.example .env
 # Edit .env — add your OPENAI_API_KEY (or set USE_LOCAL_LLM=true for Ollama)
 ```

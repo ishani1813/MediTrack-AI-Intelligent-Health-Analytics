@@ -6,14 +6,14 @@ SHAP explanations per prediction
 Redis-cached for <200ms p95
 """
 
-import os
-import json
+from pathlib import Path
+from typing import Any
+
+import joblib
 import numpy as np
 import pandas as pd
-import joblib
 import shap
-from pathlib import Path
-from typing import Dict, Any, List, Tuple, Optional
+
 from app.core.config import settings
 from app.core.logging import app_logger
 
@@ -105,7 +105,7 @@ class MLPredictionService:
 
         self._loaded = True
 
-    def _preprocess(self, raw: Dict[str, Any]) -> pd.DataFrame:
+    def _preprocess(self, raw: dict[str, Any]) -> pd.DataFrame:
         """Impute missing values and engineer derived features."""
         record = {}
         for feat in FEATURES[:11]:  # base features
@@ -164,7 +164,7 @@ class MLPredictionService:
 
         return min(score, 1.0)
 
-    def _rule_based_shap(self, df: pd.DataFrame, risk_score: float) -> List[Dict]:
+    def _rule_based_shap(self, df: pd.DataFrame, risk_score: float) -> list[dict]:
         """Generate approximate SHAP-like explanations from clinical rules."""
         row = df.iloc[0]
         contributions = []
@@ -193,7 +193,7 @@ class MLPredictionService:
         contributions.sort(key=lambda x: abs(x["shap_value"]), reverse=True)
         return contributions[:6]
 
-    async def predict(self, raw_input: Dict[str, Any]) -> Dict[str, Any]:
+    async def predict(self, raw_input: dict[str, Any]) -> dict[str, Any]:
         """
         Run prediction pipeline:
         1. Preprocess + feature engineering
