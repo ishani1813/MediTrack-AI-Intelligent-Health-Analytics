@@ -1,0 +1,37 @@
+{
+  "random_forest": {
+    "auc": 0.7941690830522052,
+    "accuracy": 0.7233333333333334,
+    "f1": 0.7558823529411764
+  },
+  "xgboost": {
+    "auc": 0.7860906454852139,
+    "accuracy": 0.7366666666666667,
+    "f1": 0.7683284457478006
+  },
+  "stacked_ensemble": {
+    "auc": 0.792307431936907,
+    "accuracy": 0.7383333333333333,
+    "f1": 0.7708029197080292
+  },
+  "model_version": "v1.2.0",
+  "features": [
+    "age",
+    "blood_pressure_systolic",
+    "blood_pressure_diastolic",
+    "heart_rate",
+    "blood_glucose",
+    "bmi",
+    "cholesterol_total",
+    "cholesterol_hdl",
+    "cholesterol_ldl",
+    "hemoglobin",
+    "oxygen_saturation",
+    "pulse_pressure",
+    "cholesterol_ratio",
+    "glucose_bmi_index"
+  ],
+  "training_samples": 2698,
+  "test_samples": 600,
+  "note": "Synthetic data with symmetric noise + 8% random label flips (see generate_synthetic_data) to approximate real-world label uncertainty rather than a cleanly-separable formula on the same features the model is given."
+}

@@ -1,5 +1,7 @@
 # AI-Powered Health Checkup & Predictive Analytics Platform
 
+![CI](https://github.com/ishani1813/MediTrack-AI-Intelligent-Health-Analytics/actions/workflows/ci.yml/badge.svg)
+
 A production-oriented full-stack platform combining **LLM-powered symptom triage** (LangChain RAG), **explainable ML predictions** (XGBoost + SHAP), and a **real-time analytics dashboard** (React + FastAPI + Redis).
 
 > Built by Ishani Sarkar — NIT Durgapur, B.Tech CSE 2026
@@ -133,9 +135,13 @@ health_ai_platform/
 
 | Model | Accuracy | AUC-ROC | F1 |
 |---|---|---|---|
-| Random Forest (base) | 78.4% | 0.81 | 0.76 |
-| XGBoost (base) | 82.1% | 0.86 | 0.80 |
-| **Stacked Ensemble** | **85.3%** | **0.89** | **0.84** |
+| Random Forest (base) | 72.3% | 0.794 | 0.756 |
+| XGBoost (base) | 73.7% | 0.786 | 0.768 |
+| **Stacked Ensemble** | **73.8%** | **0.792** | **0.771** |
+
+These numbers come from an actual training run (`python -m scripts.train_model`), not an assumed figure — the script writes them to `ml_pipeline/models/metrics.json` on every run, so anyone can reproduce them locally. Synthetic training data intentionally includes symmetric noise and an 8% random label-flip rate to approximate real-world diagnostic uncertainty, rather than a cleanly-separable formula on the same features the model sees — an earlier version of this pipeline without that noise produced a 0.99 AUC, which is a red flag for a clinical task, not a good result.
+
+Trained model binaries (`.pkl`) are gitignored by design (standard practice, not size-inflation) — run the training script to generate them locally before using `/predict/risk` with the real ensemble; without them, that endpoint falls back to a documented rule-based scorer (see `predictor.py`).
 
 SHAP explanations available per prediction via `/predict/risk` endpoint.
 
