@@ -30,11 +30,11 @@ MEDICAL_KB = [
 async def seed():
     async with Session() as db:
         # Admin user
-        admin = User(email="admin@healthai.com", full_name="Dr. Admin", hashed_password=hash_password("Admin@123"), role="admin")
+        admin = User(email="admin@meditrack.ai", full_name="Dr. Admin", hashed_password=hash_password("Admin@123"), role="admin")
         db.add(admin)
 
         # Doctor
-        doctor = User(email="doctor@healthai.com", full_name="Dr. Priya Sharma", hashed_password=hash_password("Doctor@123"), role="doctor")
+        doctor = User(email="doctor@meditrack.ai", full_name="Dr. Priya Sharma", hashed_password=hash_password("Doctor@123"), role="doctor")
         db.add(doctor)
         await db.flush()
 
@@ -89,8 +89,8 @@ async def seed():
         await db.commit()
 
     print("Database seeded successfully!")
-    print("Admin: admin@healthai.com / Admin@123")
-    print("Doctor: doctor@healthai.com / Doctor@123")
+    print("Admin: admin@meditrack.ai / Admin@123")
+    print("Doctor: doctor@meditrack.ai / Doctor@123")
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ import { authApi } from '../services/api'
 import { useAuthStore } from '../store/authStore'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('doctor@healthai.com')
+  const [email, setEmail] = useState('doctor@meditrack.ai')
   const [password, setPassword] = useState('Doctor@123')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -74,8 +74,8 @@ export default function LoginPage() {
 
         <div className="mt-4 p-3 bg-slate-50 rounded-lg">
           <p className="text-xs text-slate-500 font-medium mb-1">Demo credentials</p>
-          <p className="text-xs text-slate-400">doctor@healthai.com / Doctor@123</p>
-          <p className="text-xs text-slate-400">admin@healthai.com / Admin@123</p>
+          <p className="text-xs text-slate-400">doctor@meditrack.ai / Doctor@123</p>
+          <p className="text-xs text-slate-400">admin@meditrack.ai / Admin@123</p>
         </div>
       </div>
     </div>
