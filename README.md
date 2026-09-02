@@ -1,10 +1,25 @@
-# AI-Powered Health Checkup & Predictive Analytics Platform
+# MediTrack — AI Health Analytics Platform
 
 ![CI](https://github.com/ishani1813/MediTrack-AI-Intelligent-Health-Analytics/actions/workflows/ci.yml/badge.svg)
 
 A production-oriented full-stack platform combining **LLM-powered symptom triage** (LangChain RAG), **explainable ML predictions** (XGBoost + SHAP), and a **real-time analytics dashboard** (React + FastAPI + Redis).
 
 > Built by Ishani Sarkar — NIT Durgapur, B.Tech CSE 2026
+
+---
+
+## Screenshots
+
+<table>
+<tr>
+<td><img src="screenshots/login.png" alt="Login screen" width="400"/></td>
+<td><img src="screenshots/dashboard.png" alt="Analytics dashboard" width="400"/></td>
+</tr>
+<tr>
+<td><img src="screenshots/prediction.png" alt="Risk prediction with SHAP explanation" width="400"/></td>
+<td><img src="screenshots/triage.png" alt="AI symptom triage with RAG" width="400"/></td>
+</tr>
+</table>
 
 ---
 

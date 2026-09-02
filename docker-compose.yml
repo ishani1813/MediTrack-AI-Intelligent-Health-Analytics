@@ -9,7 +9,7 @@ services:
       MYSQL_USER: ${MYSQL_USER:-health_user}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-health_pass}
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./docker/mysql_init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -39,8 +39,9 @@ services:
     environment:
       MYSQL_URL: mysql+aiomysql://${MYSQL_USER:-health_user}:${MYSQL_PASSWORD:-health_pass}@mysql:3306/health_platform
       REDIS_URL: redis://redis:6379
+      ML_OUTPUT_DIR: /app/ml_models
     ports:
-      - "8000:8000"
+      - "8080:8000"
     volumes:
       - ./backend:/app
       - ./ml_pipeline/models:/app/ml_models
@@ -57,7 +58,7 @@ services:
       dockerfile: ../docker/Dockerfile.frontend
     container_name: health_frontend
     environment:
-      VITE_API_URL: http://localhost:8000
+      VITE_API_URL: http://localhost:8080
     ports:
       - "5173:5173"
     volumes:
@@ -71,7 +72,7 @@ services:
     image: chromadb/chroma:latest
     container_name: health_chromadb
     ports:
-      - "8001:8000"
+      - "8010:8000"
     volumes:
       - chroma_data:/chroma/chroma
 

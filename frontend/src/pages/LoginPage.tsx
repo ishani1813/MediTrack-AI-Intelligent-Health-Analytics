@@ -36,7 +36,7 @@ export default function LoginPage() {
             <Activity className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-slate-800">Health AI Platform</h1>
+            <h1 className="text-lg font-bold text-slate-800">MediTrack</h1>
             <p className="text-xs text-slate-400">Predictive Analytics System</p>
           </div>
         </div>

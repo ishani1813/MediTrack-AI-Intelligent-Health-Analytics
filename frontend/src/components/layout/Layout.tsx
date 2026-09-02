@@ -28,8 +28,8 @@ export default function Layout() {
               <Activity className="w-4 h-4 text-white" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-800">Health AI</p>
-              <p className="text-xs text-slate-400">Platform</p>
+              <p className="text-sm font-semibold text-slate-800">MediTrack</p>
+              <p className="text-xs text-slate-400">AI Health Analytics</p>
             </div>
           </div>
         </div>

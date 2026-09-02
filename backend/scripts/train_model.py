@@ -32,8 +32,17 @@ warnings.filterwarnings("ignore")
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-OUTPUT_DIR = Path(__file__).parent.parent.parent / "ml_pipeline" / "models"
+# Locally (outside Docker), the repo root sits 3 directories up from this
+# file, and ml_pipeline/ is a sibling of backend/. Inside the backend
+# container, only backend/ is mounted as /app — ml_pipeline/ isn't part of
+# that build context at all, so the same relative-path math would resolve
+# to a path outside the container's filesystem. ML_OUTPUT_DIR lets
+# docker-compose point this at the actual volume-mounted location
+# (/app/ml_models — see docker-compose.yml) instead.
+_default_output_dir = Path(__file__).parent.parent.parent / "ml_pipeline" / "models"
+OUTPUT_DIR = Path(os.environ.get("ML_OUTPUT_DIR", _default_output_dir))
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+(OUTPUT_DIR.parent / "data").mkdir(parents=True, exist_ok=True)
 
 FEATURES = [
     "age", "blood_pressure_systolic", "blood_pressure_diastolic",
