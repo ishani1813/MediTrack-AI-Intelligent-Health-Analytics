@@ -12,13 +12,17 @@ A production-oriented full-stack platform combining **LLM-powered symptom triage
 
 <table>
 <tr>
-<td><img src="screenshots/login.png" alt="Login screen" width="400"/></td>
-<td><img src="screenshots/dashboard.png" alt="Analytics dashboard" width="400"/></td>
+<td><img src="screenshots/Login1.png" alt="Login screen" width="400"/></td>
+<td><img src="screenshots/login.png" alt="Dashboard" width="400"/></td>
 </tr>
 <tr>
-<td><img src="screenshots/prediction.png" alt="Risk prediction with SHAP explanation" width="400"/></td>
-<td><img src="screenshots/triage.png" alt="AI symptom triage with RAG" width="400"/></td>
+<td><img src="screenshots/dashboard.png" alt="Analytics dashboard" width="400"/></td>
+<td><img src="screenshots/prediction.png" alt="Without Risk prediction with SHAP explanation" width="400"/></td>
 </tr>
+<tr>
+<td><img src="screenshots/Prediction1.png" alt="Risk prediction with SHAP explanation" width="400"/></td>
+<td><img src="screenshots/triage.png" alt="AI symptom triage with RAG" width="400"/></td>
+</tr>  
 </table>
 
 ---
