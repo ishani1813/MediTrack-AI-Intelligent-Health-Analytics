@@ -90,7 +90,7 @@ async def add_health_record(
         raise HTTPException(status_code=404, detail="Patient not found")
 
     record = HealthRecord(
-        **payload.model_dump(),
+        **payload.model_dump(exclude={"patient_id"}),
         patient_id=patient_id,
         recorded_by=int(current_user["sub"]),
     )
