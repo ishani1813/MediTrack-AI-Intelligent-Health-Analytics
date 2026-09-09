@@ -1,5 +1,4 @@
 """
-Seed the database with demo data.
 Run: docker exec -it health_backend python scripts/seed_data.py
 """
 import asyncio
