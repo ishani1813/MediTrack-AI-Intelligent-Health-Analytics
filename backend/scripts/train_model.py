@@ -1,11 +1,5 @@
 """
-Train the stacked ensemble model:
-  Base learners : Random Forest + XGBoost
-  Meta-learner  : Logistic Regression
-  Explainability: SHAP (TreeExplainer on XGBoost)
-
 Run: python -m scripts.train_model
-Outputs saved to: ml_pipeline/models/
 """
 
 import os
